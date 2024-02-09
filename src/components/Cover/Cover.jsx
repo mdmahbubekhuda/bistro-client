@@ -26,9 +26,9 @@ const Cover = ({ coverImage, coverTitle, coverText }) => {
 };
 
 Cover.propTypes = {
-  coverImage: PropTypes.string.isRequired,
-  coverTitle: PropTypes.string.isRequired,
-  coverText: PropTypes.string.isRequired,
+  coverImage: PropTypes.string,
+  coverTitle: PropTypes.string,
+  coverText: PropTypes.string,
 };
 
 export default Cover;
