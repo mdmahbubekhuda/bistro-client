@@ -3,6 +3,7 @@ import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import useMenu from "../../../hooks/useMenu";
 import MenuItem from "./MenuItem";
 import Cover from "../../../components/Cover/Cover";
+import { Link } from "react-router-dom";
 
 const MenuItems = ({
   coverImage,
@@ -30,6 +31,13 @@ const MenuItems = ({
         {filteredMenu.map((item) => (
           <MenuItem key={item._id} item={item} />
         ))}
+      </div>
+      <div className="w-full text-center">
+        <Link to={`/order/${menuCategory}`}>
+          <button className="btn btn-outline border-0 border-b-4">
+            Order Now
+          </button>
+        </Link>
       </div>
     </>
   );
