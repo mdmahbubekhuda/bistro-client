@@ -9,7 +9,7 @@ import dessertImg from "../../assets/menu/dessert-bg.jpeg";
 const Menu = () => {
   return (
     <div className="space-y-8 mb-12">
-      <Cover coverImage={coverImage} coverTitle={"our menu"} coverText={""} />
+      <Cover coverImage={coverImage} coverTitle={"our menu"} />
 
       {/* todays offer */}
       <MenuItems
