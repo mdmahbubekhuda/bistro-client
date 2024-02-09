@@ -1,9 +1,11 @@
-import PageTitle from "../../components/PageTitle/PageTitle";
+import Cover from "../Shared/Cover/Cover";
+import coverImage from "../../assets/menu/banner3.jpg";
+import PopularMenu from "../Home/PopularMenu/PopularMenu";
 
 const Menu = () => {
   return (
     <div>
-      <PageTitle />
+      <Cover coverImage={coverImage} coverTitle={"our menu"} coverText={""} />
     </div>
   );
 };

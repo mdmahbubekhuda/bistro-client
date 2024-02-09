@@ -1,4 +1,3 @@
-import PageTitle from "../../../components/PageTitle/PageTitle";
 import Banner from "../Banner/Banner";
 import Category from "../Category/Category";
 import FeaturedItem from "../FeaturedItem/FeaturedItem";
@@ -8,7 +7,6 @@ import Testimonials from "../Testimonials/Testimonials";
 const Home = () => {
   return (
     <div>
-      <PageTitle />
       <Banner />
       <Category />
       <PopularMenu />
