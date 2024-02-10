@@ -9,10 +9,10 @@ import FoodCard from "../../components/FoodCard/FoodCard";
 import { useParams } from "react-router-dom";
 
 const Order = () => {
-  const [menu] = useMenu();
   const [tabs, setTabs] = useState([]);
-  const { category } = useParams();
   const [tabIndex, setTabIndex] = useState(0);
+  const [menu] = useMenu();
+  const { category } = useParams();
 
   useEffect(() => {
     const filteredTabNames = menu
@@ -25,7 +25,7 @@ const Order = () => {
   }, [menu, category]);
 
   return (
-    <div>
+    <div className="mb-8">
       <Cover coverImage={coverImage} coverTitle={"place order"} />
 
       {tabs.length && (
@@ -37,6 +37,7 @@ const Order = () => {
           </TabList>
           {tabs.map((tab, idx) => (
             <TabPanel key={idx}>
+              {/* TODO: Add pagination to display 6 items in a page for each category */}
               <div className="grid md:grid-cols-3 gap-12">
                 {menu
                   .filter((item) => item.category === tab)
