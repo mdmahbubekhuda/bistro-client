@@ -9,10 +9,10 @@ import {
   Button,
 } from "@material-tailwind/react";
 
-const FoodCard = ({ item }) => {
-  const { name, image, recipe, price } = item;
+const FoodCard = ({ foodItem }) => {
+  const { name, image, recipe, price } = foodItem;
   return (
-    <Card className="mt-6 w-96">
+    <Card className="mt-6 w-76">
       <CardHeader color="blue-gray" className="relative h-56">
         <img src={image} alt="card-image" />
       </CardHeader>
@@ -31,7 +31,7 @@ const FoodCard = ({ item }) => {
 };
 
 FoodCard.propTypes = {
-  item: PropTypes.object.isRequired,
+  foodItem: PropTypes.object.isRequired,
 };
 
 export default FoodCard;

@@ -5,8 +5,8 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { useEffect, useState } from "react";
 import useMenu from "../../hooks/useMenu";
-import FoodCard from "../../components/FoodCard/FoodCard";
 import { useParams } from "react-router-dom";
+import FoodCategoryTab from "./FoodCategoryTab/FoodCategoryTab";
 
 const Order = () => {
   const [tabs, setTabs] = useState([]);
@@ -37,14 +37,9 @@ const Order = () => {
           </TabList>
           {tabs.map((tab, idx) => (
             <TabPanel key={idx}>
-              {/* TODO: Add pagination to display 6 items in a page for each category */}
-              <div className="grid md:grid-cols-2 place-items-center gap-12">
-                {menu
-                  .filter((item) => item.category === tab)
-                  .map((item) => (
-                    <FoodCard key={item._id} item={item} />
-                  ))}
-              </div>
+              <FoodCategoryTab
+                foodItems={menu.filter((item) => item.category === tab)}
+              />
             </TabPanel>
           ))}
         </Tabs>
