@@ -8,29 +8,44 @@ import {
   Checkbox,
   Button,
 } from "@material-tailwind/react";
-import { useEffect, useRef, useState } from "react";
-
+import { useContext, useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
   validateCaptcha,
 } from "react-simple-captcha";
+import { AuthContext } from "../../context/AuthProvider";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const captchaRef = useRef(null);
   const [loginDisabled, setLoginDisabled] = useState(true);
+  const { login } = useContext(AuthContext);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+    const { email, password } = data;
+
+    login(email, password).then((res) => {
+      const user = res.user;
+      console.log(user);
+    });
+
+    setLoginDisabled(true);
+    reset();
+  };
 
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const email = form.email.value;
-    const password = form.password.value;
-    console.log(email, password);
-  };
 
   const handleCaptcha = () => {
     setLoginDisabled(true);
@@ -39,7 +54,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center mt-[10%]">
+    <div className="flex justify-center my-[10%]">
       <Card className="w-96">
         <CardHeader
           variant="gradient"
@@ -50,10 +65,29 @@ const Login = () => {
             Sign In
           </Typography>
         </CardHeader>
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <CardBody className="flex flex-col gap-4">
-            <Input label="Email" size="lg" type="email" name="email" />
-            <Input label="Password" size="lg" type="password" name="password" />
+            {errors.email && (
+              <Typography variant="small" color="red" className="-mb-3">
+                * Email is required
+              </Typography>
+            )}
+            <Input
+              {...register("email", { required: true })}
+              label="Email"
+              size="lg"
+            />
+            {errors.password && (
+              <Typography variant="small" color="red" className="-mb-3">
+                * Password is required
+              </Typography>
+            )}
+            <Input
+              {...register("password", { required: true })}
+              label="Password"
+              size="lg"
+              type="password"
+            />
             {/* captcha */}
             <LoadCanvasTemplate />
             <Input label="Captcha" size="lg" type="input" ref={captchaRef} />
@@ -81,12 +115,12 @@ const Login = () => {
             <Typography variant="small" className="mt-6 flex justify-center">
               Don&apos;t have an account?
               <Typography
-                as="a"
+                as="span"
                 variant="small"
                 color="blue-gray"
                 className="ml-1 font-bold"
               >
-                Sign up
+                <Link to={"/signup"}>Sign up</Link>
               </Typography>
             </Typography>
           </CardFooter>

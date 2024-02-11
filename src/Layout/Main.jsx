@@ -5,13 +5,14 @@ import PageTitle from "../components/PageTitle/PageTitle";
 
 const Main = () => {
   const location = useLocation();
-  const isLogin = location.pathname.includes("login");
+  const noHeaderFooter =
+    location.pathname.includes("login") || location.pathname.includes("signup");
   return (
     <div>
       <PageTitle />
-      {isLogin || <Navbar />}
+      {noHeaderFooter || <Navbar />}
       <Outlet />
-      {isLogin || <Footer />}
+      {noHeaderFooter || <Footer />}
     </div>
   );
 };
