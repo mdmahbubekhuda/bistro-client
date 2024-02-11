@@ -23,7 +23,7 @@ const FoodCategoryTab = ({ foodItems }) => {
     <Swiper pagination={pagination} modules={[Pagination]} className="mySwiper">
       {pages.map((page) => (
         <SwiperSlide key={page}>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 p-10 place-items-center place-content-center">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12 p-10 place-items-center place-content-center mb-8">
             {foodItems
               .slice(
                 parseInt(page * itemsPerPage),

@@ -24,7 +24,7 @@ const Category = () => {
       />
 
       <Swiper
-        slidesPerView={screenSize.current > 700 ? 3 : 1}
+        slidesPerView={screenSize.current > 1000 ? 3 : 1}
         spaceBetween={30}
         pagination={{
           clickable: true,

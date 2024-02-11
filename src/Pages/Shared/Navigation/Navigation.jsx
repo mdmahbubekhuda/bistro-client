@@ -4,18 +4,22 @@ import {
   Button,
   IconButton,
   Collapse,
+  Avatar,
+  Badge,
 } from "@material-tailwind/react";
+import { IoIosPower, IoIosCart } from "react-icons/io";
 
 import { Link } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
 import "animate.css";
 import { useEffect, useState } from "react";
+import useCart from "../../../hooks/useCart";
 
 const Navigation = () => {
   const { user, logout } = useAuth();
-
   const [openNav, setOpenNav] = useState(false);
+  const [cart] = useCart();
 
   useEffect(() => {
     window.addEventListener(
@@ -28,7 +32,7 @@ const Navigation = () => {
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
         as="li"
-        variant="small"
+        variant="h6"
         color="blue-gray"
         className="p-1 font-normal"
       >
@@ -38,7 +42,7 @@ const Navigation = () => {
       </Typography>
       <Typography
         as="li"
-        variant="small"
+        variant="h6"
         color="blue-gray"
         className="p-1 font-normal"
       >
@@ -48,7 +52,7 @@ const Navigation = () => {
       </Typography>
       <Typography
         as="li"
-        variant="small"
+        variant="h6"
         color="blue-gray"
         className="p-1 font-normal"
       >
@@ -56,6 +60,13 @@ const Navigation = () => {
           Order
         </Link>
       </Typography>
+      <Link to={"/cart"}>
+        <Badge content={cart.length} placement="bottom-end">
+          <IconButton size="sm">
+            <IoIosCart className="h-full w-4" />
+          </IconButton>
+        </Badge>
+      </Link>
     </ul>
   );
 
@@ -91,33 +102,36 @@ const Navigation = () => {
         >
           Bistro
         </Typography>
+        <div className="mr-4 hidden lg:block">{navList}</div>
         <div className="flex items-center gap-4">
-          <div className="mr-4 hidden lg:block">{navList}</div>
-          <div className="flex items-center gap-x-1">
-            <Button variant="text" size="sm" className="hidden lg:inline-block">
-              <span>{user?.displayName && user.displayName}</span>
-            </Button>
-            {!user ? (
-              <Link to={"/login"}>
-                <Button
-                  variant="gradient"
-                  size="sm"
-                  className="hidden lg:inline-block"
-                >
-                  <span>Sign in</span>
-                </Button>
-              </Link>
-            ) : (
+          {!user ? (
+            <Link to={"/login"}>
               <Button
                 variant="gradient"
                 size="sm"
                 className="hidden lg:inline-block"
-                onClick={handleLogout}
               >
-                <span>Sign out</span>
+                <span>Sign in</span>
               </Button>
-            )}
-          </div>
+            </Link>
+          ) : (
+            <div className="hidden lg:flex flex-row-reverse items-center text-right gap-4">
+              <Avatar src={user.photoURL} alt="avatar" />
+              <div>
+                <Typography variant="h6">{user.displayName}</Typography>
+                <Link onClick={handleLogout} className=" ">
+                  <Typography
+                    variant="paragraph"
+                    color="red"
+                    className="font-medium flex items-center gap-1"
+                  >
+                    <IoIosPower />
+                    Sign Out
+                  </Typography>
+                </Link>
+              </div>
+            </div>
+          )}
           <IconButton
             variant="text"
             className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"

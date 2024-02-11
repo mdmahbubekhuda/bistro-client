@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Footer from "../pages/Shared/Footer/Footer";
-import PageTitle from "../components/PageTitle/PageTitle";
 import Navigation from "../pages/Shared/Navigation/Navigation";
+import { PageTitle } from "../context/PageTitleProvider";
 
 const Main = () => {
   const location = useLocation();
