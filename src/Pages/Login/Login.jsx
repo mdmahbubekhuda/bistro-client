@@ -8,20 +8,22 @@ import {
   Checkbox,
   Button,
 } from "@material-tailwind/react";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
   validateCaptcha,
 } from "react-simple-captcha";
-import { AuthContext } from "../../context/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
   const captchaRef = useRef(null);
   const [loginDisabled, setLoginDisabled] = useState(true);
-  const { login } = useContext(AuthContext);
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const {
     register,
@@ -36,7 +38,8 @@ const Login = () => {
 
     login(email, password).then((res) => {
       const user = res.user;
-      console.log(user);
+      if (user)
+        navigate(location.state?.from?.pathname || "/", { replace: true });
     });
 
     setLoginDisabled(true);

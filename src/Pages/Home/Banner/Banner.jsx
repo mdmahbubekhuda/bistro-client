@@ -1,5 +1,6 @@
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import "./Banner.css";
 
 // slider images
 import img1 from "../../../assets/home/01.jpg";
@@ -16,7 +17,7 @@ const Banner = () => {
       interval={2000}
       infiniteLoop={true}
       showStatus={false}
-      className="text-center"
+      stopOnHover={false}
     >
       <div>
         <img src={img1} />

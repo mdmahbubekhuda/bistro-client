@@ -38,7 +38,7 @@ const Order = () => {
           {tabs.map((tab, idx) => (
             <TabPanel key={idx}>
               {/* TODO: Add pagination to display 6 items in a page for each category */}
-              <div className="grid md:grid-cols-3 gap-12">
+              <div className="grid md:grid-cols-2 place-items-center gap-12">
                 {menu
                   .filter((item) => item.category === tab)
                   .map((item) => (

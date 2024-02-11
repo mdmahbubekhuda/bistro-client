@@ -4,7 +4,7 @@ const SectionTitle = ({ heading, subHeading }) => {
   return (
     <div className="md:w-4/12 text-center my-12 mx-auto">
       {subHeading && (
-        <p className="pb-2 capitalize bg-clip-text text-transparent bg-gradient-to-b from-yellow-400 to-yellow-700 italic">
+        <p className="pb-2 capitalize bg-clip-text text-transparent bg-gradient-to-b from-yellow-700 to-yellow-900 italic">
           --- {subHeading} ---
         </p>
       )}

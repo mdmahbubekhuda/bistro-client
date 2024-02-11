@@ -6,14 +6,14 @@ import {
   Typography,
   CardHeader,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuthProvider";
+import useAuth from "../../hooks/useAuth";
 
 const SignUp = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser } = useAuth();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -26,7 +26,8 @@ const SignUp = () => {
     console.log(data);
     const { name, email, password } = data;
     createUser(email, password).then((res) => {
-      console.log(res.user);
+      const user = res.user;
+      if (user) navigate("/");
     });
     reset();
   };

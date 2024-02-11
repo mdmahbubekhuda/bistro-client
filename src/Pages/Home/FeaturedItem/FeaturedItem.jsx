@@ -28,9 +28,6 @@ const FeaturedItem = () => {
               maiores, fugit quod perspiciatis eum unde tempora laboriosam
               culpa.
             </p>
-            <button className="btn btn-outline border-0 border-b-4 text-white">
-              Order Now
-            </button>
           </div>
         </div>
       </div>
