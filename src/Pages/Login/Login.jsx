@@ -17,6 +17,8 @@ import {
 } from "react-simple-captcha";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
+import "animate.css";
 
 const Login = () => {
   const captchaRef = useRef(null);
@@ -33,13 +35,32 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     const { email, password } = data;
 
     login(email, password).then((res) => {
       const user = res.user;
-      if (user)
+      if (user) {
+        Swal.fire({
+          title: "Sign In Successful",
+          icon: "success",
+
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInDown
+              animate__faster
+            `,
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutUp
+              animate__faster
+            `,
+          },
+        });
         navigate(location.state?.from?.pathname || "/", { replace: true });
+      }
     });
 
     setLoginDisabled(true);

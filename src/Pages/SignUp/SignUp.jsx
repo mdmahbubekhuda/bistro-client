@@ -10,9 +10,11 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
+import "animate.css";
 
 const SignUp = () => {
-  const { createUser } = useAuth();
+  const { createUser, updateUserProfile } = useAuth();
   const navigate = useNavigate();
 
   const {
@@ -23,11 +25,39 @@ const SignUp = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
-    const { name, email, password } = data;
+    const { name, photo, email, password } = data;
+    // create user
     createUser(email, password).then((res) => {
       const user = res.user;
-      if (user) navigate("/");
+      if (user) {
+        const userInfo = {
+          displayName: name,
+          photoURL: photo,
+        };
+        // update user profile
+        updateUserProfile(userInfo).then(() => {
+          // success message
+          Swal.fire({
+            title: "Registered Successful",
+            icon: "success",
+            showClass: {
+              popup: `
+                animate__animated
+                animate__fadeInDown
+                animate__faster
+              `,
+            },
+            hideClass: {
+              popup: `
+                animate__animated
+                animate__fadeOutUp
+                animate__faster
+              `,
+            },
+          });
+          navigate("/");
+        });
+      }
     });
     reset();
   };
@@ -64,6 +94,19 @@ const SignUp = () => {
               {...register("name", { required: true })}
               size="lg"
               placeholder="John Doe"
+              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+            />
+            <Typography variant="h6" color="blue-gray" className="-mb-3">
+              Photo URL
+            </Typography>
+
+            <Input
+              {...register("photo")}
+              size="lg"
+              placeholder="Photo URL"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",

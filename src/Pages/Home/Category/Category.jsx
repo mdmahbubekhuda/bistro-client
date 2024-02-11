@@ -24,16 +24,16 @@ const Category = () => {
       />
 
       <Swiper
-        slidesPerView={screenSize.current > 700 ? 4 : 1}
+        slidesPerView={screenSize.current > 700 ? 3 : 1}
         spaceBetween={30}
         pagination={{
           clickable: true,
         }}
         modules={[Pagination]}
-        className="mySwiper text-center my-8"
+        className="mySwiper text-center"
       >
         <SwiperSlide>
-          <div className="grid justify-center">
+          <div className="grid justify-center mb-14">
             <img src={slide1} className="row-start-1 col-start-1" />
             <h3 className="text-4xl uppercase row-start-1 col-start-1 self-end mb-4 bg-clip-text text-transparent bg-gradient-to-b from-gray-400 to-gray-700">
               salad
@@ -41,7 +41,7 @@ const Category = () => {
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="grid justify-center">
+          <div className="grid justify-center mb-14">
             <img src={slide2} className="row-start-1 col-start-1" />
             <h3 className="text-4xl uppercase row-start-1 col-start-1 self-end mb-4 bg-clip-text text-transparent bg-gradient-to-b from-gray-400 to-gray-700">
               pizza
@@ -49,7 +49,7 @@ const Category = () => {
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="grid justify-center">
+          <div className="grid justify-center mb-14">
             <img src={slide3} className="row-start-1 col-start-1" />
             <h3 className="text-4xl uppercase row-start-1 col-start-1 self-end mb-4 bg-clip-text text-transparent bg-gradient-to-b from-gray-400 to-gray-700">
               soup
@@ -57,7 +57,7 @@ const Category = () => {
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="grid justify-center">
+          <div className="grid justify-center mb-14">
             <img src={slide4} className="row-start-1 col-start-1" />
             <h3 className="text-4xl uppercase row-start-1 col-start-1 self-end mb-4 bg-clip-text text-transparent bg-gradient-to-b from-gray-400 to-gray-700">
               desert
@@ -65,7 +65,7 @@ const Category = () => {
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="grid justify-center">
+          <div className="grid justify-center mb-14">
             <img src={slide5} className="row-start-1 col-start-1" />
             <h3 className="text-4xl uppercase row-start-1 col-start-1 self-end mb-4 bg-clip-text text-transparent bg-gradient-to-b from-gray-400 to-gray-700">
               salad
