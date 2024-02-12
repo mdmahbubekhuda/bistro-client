@@ -7,18 +7,19 @@ import {
   Avatar,
   Badge,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
 import "animate.css";
 import { useEffect, useState } from "react";
 import useCart from "../../../hooks/useCart";
-import { PowerIcon, ShoppingCartIcon } from "@heroicons/react/24/solid";
+import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 
 const Navigation = () => {
   const { user, logout } = useAuth();
   const [openNav, setOpenNav] = useState(false);
   const [cart] = useCart();
+  const location = useLocation();
 
   useEffect(() => {
     window.addEventListener(
@@ -59,7 +60,7 @@ const Navigation = () => {
           Order
         </Link>
       </Typography>
-      <Link to={"dashboard/cart"}>
+      <Link to={"dashboard/cart"} state={{ from: location }} replace>
         <Badge content={cart.length} placement="bottom-end">
           <IconButton size="sm">
             <ShoppingCartIcon className="h-5 w-5" />
@@ -119,12 +120,7 @@ const Navigation = () => {
               <div>
                 <Typography variant="h6">{user.displayName}</Typography>
                 <Link onClick={handleLogout} className=" ">
-                  <Typography
-                    variant="paragraph"
-                    color="red"
-                    className="font-medium flex items-center gap-1"
-                  >
-                    <PowerIcon className="w-5 h-5" />
+                  <Typography variant="paragraph" color="red">
                     Sign Out
                   </Typography>
                 </Link>

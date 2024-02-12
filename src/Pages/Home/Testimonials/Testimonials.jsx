@@ -10,14 +10,19 @@ import { LiaComments } from "react-icons/lia";
 
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 const Testimonials = () => {
   const [reviews, setReviews] = useState([]);
+  const axiosPublic = useAxiosPublic();
+
   useEffect(() => {
-    fetch("http://localhost:5000/reviews")
-      .then((res) => res.json())
-      .then((data) => setReviews(data));
-  }, []);
+    (async () => {
+      const res = await axiosPublic.get("reviews");
+      const data = await res.data;
+      setReviews(data);
+    })();
+  });
 
   return (
     <section className="my-12">

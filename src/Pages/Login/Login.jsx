@@ -19,6 +19,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import "animate.css";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const Login = () => {
   const captchaRef = useRef(null);
@@ -126,8 +127,6 @@ const Login = () => {
             <div className="-ml-2.5">
               <Checkbox label="Remember Me" />
             </div>
-          </CardBody>
-          <CardFooter className="pt-0">
             <Button
               variant="gradient"
               fullWidth
@@ -136,19 +135,23 @@ const Login = () => {
             >
               Sign In
             </Button>
-            <Typography variant="small" className="mt-6 flex justify-center">
-              Don&apos;t have an account?
-              <Typography
-                as="span"
-                variant="small"
-                color="blue-gray"
-                className="ml-1 font-bold"
-              >
-                <Link to={"/signup"}>Sign up</Link>
-              </Typography>
-            </Typography>
-          </CardFooter>
+          </CardBody>
         </form>
+        <hr />
+        <CardFooter className="pt-6">
+          <SocialLogin />
+          <Typography variant="small" className="mt-6 flex justify-center">
+            Don&apos;t have an account?
+            <Typography
+              as="span"
+              variant="small"
+              color="blue-gray"
+              className="ml-1 font-bold"
+            >
+              <Link to={"/signup"}>Sign up</Link>
+            </Typography>
+          </Typography>
+        </CardFooter>
       </Card>
     </div>
   );

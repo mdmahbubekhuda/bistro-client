@@ -5,17 +5,23 @@ import {
   Button,
   Typography,
   CardHeader,
+  CardBody,
+  CardFooter,
 } from "@material-tailwind/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import "animate.css";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const SignUp = () => {
   const { createUser, updateUserProfile } = useAuth();
+  const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const {
     register,
@@ -26,45 +32,57 @@ const SignUp = () => {
 
   const onSubmit = (data) => {
     const { name, photo, email, password } = data;
+
     // create user
     createUser(email, password).then((res) => {
       const user = res.user;
+
+      // update user profile
       if (user) {
-        const userInfo = {
+        const updateUserInfo = {
           displayName: name,
           photoURL: photo,
         };
-        // update user profile
-        updateUserProfile(userInfo).then(() => {
-          // success message
-          Swal.fire({
-            title: "Registered Successful",
-            icon: "success",
-            showClass: {
-              popup: `
+        updateUserProfile(updateUserInfo).then(() => {
+          // create user entry in db
+          const userInfo = { name, email };
+          axiosPublic.post("users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              // success message
+              Swal.fire({
+                title: "Registered Successful",
+                icon: "success",
+                showClass: {
+                  popup: `
                 animate__animated
                 animate__fadeInDown
                 animate__faster
               `,
-            },
-            hideClass: {
-              popup: `
+                },
+                hideClass: {
+                  popup: `
                 animate__animated
                 animate__fadeOutUp
                 animate__faster
               `,
-            },
+                },
+              });
+              // navigate to home
+              navigate(location.state?.from?.pathname || "/", {
+                replace: true,
+              });
+            }
           });
-          navigate("/");
         });
       }
     });
+    // reset form
     reset();
   };
 
   return (
     <div className="flex justify-center my-[10%]">
-      <Card color="transparent" shadow={true} className="p-4">
+      <Card className="w-96">
         <CardHeader
           variant="gradient"
           color="gray"
@@ -77,11 +95,8 @@ const SignUp = () => {
             Nice to meet you! Enter your details to register.
           </Typography>
         </CardHeader>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
-        >
-          <div className="mb-1 flex flex-col gap-6">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <CardBody className="flex flex-col gap-4">
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Your Name
             </Typography>
@@ -164,35 +179,44 @@ const SignUp = () => {
                 className: "before:content-none after:content-none",
               }}
             />
-          </div>
-          <Checkbox
-            label={
-              <Typography
-                variant="small"
-                color="gray"
-                className="flex items-center font-normal"
-              >
-                I agree the
-                <a
-                  href="#"
-                  className="font-medium transition-colors hover:text-gray-900"
+            <Checkbox
+              label={
+                <Typography
+                  variant="small"
+                  color="gray"
+                  className="flex items-center font-normal"
                 >
-                  &nbsp;Terms and Conditions
-                </a>
-              </Typography>
-            }
-            containerProps={{ className: "-ml-2.5" }}
-          />
-          <Button type="submit" className="mt-6" fullWidth>
-            sign up
-          </Button>
-          <Typography color="gray" className="mt-4 text-center font-normal">
-            Already have an account?{" "}
-            <Link to={"/login"} className="font-medium text-gray-900">
-              Sign In
-            </Link>
-          </Typography>
+                  I agree the
+                  <a
+                    href="#"
+                    className="font-medium transition-colors hover:text-gray-900"
+                  >
+                    &nbsp;Terms and Conditions
+                  </a>
+                </Typography>
+              }
+              containerProps={{ className: "-ml-2.5" }}
+            />
+            <Button type="submit" fullWidth>
+              sign up
+            </Button>
+          </CardBody>
         </form>
+        <hr />
+        <CardFooter className="pt-6">
+          <SocialLogin />
+          <Typography variant="small" className="mt-6 flex justify-center">
+            Already have an account?
+            <Typography
+              as="span"
+              variant="small"
+              color="blue-gray"
+              className="ml-1 font-bold"
+            >
+              <Link to={"/login"}>Sign In</Link>
+            </Typography>
+          </Typography>
+        </CardFooter>
       </Card>
     </div>
   );
