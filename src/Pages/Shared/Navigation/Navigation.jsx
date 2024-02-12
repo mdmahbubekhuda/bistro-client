@@ -7,14 +7,13 @@ import {
   Avatar,
   Badge,
 } from "@material-tailwind/react";
-import { IoIosPower, IoIosCart } from "react-icons/io";
-
 import { Link } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
 import "animate.css";
 import { useEffect, useState } from "react";
 import useCart from "../../../hooks/useCart";
+import { PowerIcon, ShoppingCartIcon } from "@heroicons/react/24/solid";
 
 const Navigation = () => {
   const { user, logout } = useAuth();
@@ -46,7 +45,7 @@ const Navigation = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link to={"/menu"} className="flex items-center">
+        <Link to={"menu"} className="flex items-center">
           Menu
         </Link>
       </Typography>
@@ -56,14 +55,14 @@ const Navigation = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link to={"/order/dessert"} className="flex items-center">
+        <Link to={"order/dessert"} className="flex items-center">
           Order
         </Link>
       </Typography>
-      <Link to={"/cart"}>
+      <Link to={"dashboard/cart"}>
         <Badge content={cart.length} placement="bottom-end">
           <IconButton size="sm">
-            <IoIosCart className="h-full w-4" />
+            <ShoppingCartIcon className="h-5 w-5" />
           </IconButton>
         </Badge>
       </Link>
@@ -125,7 +124,7 @@ const Navigation = () => {
                     color="red"
                     className="font-medium flex items-center gap-1"
                   >
-                    <IoIosPower />
+                    <PowerIcon className="w-5 h-5" />
                     Sign Out
                   </Typography>
                 </Link>

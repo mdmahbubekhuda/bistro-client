@@ -61,7 +61,7 @@ const FoodCard = ({ foodItem }) => {
   };
 
   return (
-    <Card className="mt-6 w-76 h-full">
+    <Card className="mt-6 w-72 lg:w-80 h-full">
       <CardHeader color="blue-gray" className="relative h-56">
         <img src={image} alt="card-image" />
       </CardHeader>
