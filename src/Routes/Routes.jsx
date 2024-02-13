@@ -8,8 +8,10 @@ import SignUp from "../pages/SignUp/SignUp";
 import Dashboard from "../layout/Dashboard";
 import Cart from "../pages/Dashboard/Cart/Cart";
 import ProtectedRoutes from "./ProtectedRoutes";
+import Users from "../pages/Dashboard/Users/Users";
 
 export const router = createBrowserRouter([
+  // main
   {
     path: "/",
     element: <Main />,
@@ -36,10 +38,20 @@ export const router = createBrowserRouter([
       },
     ],
   },
+
+  // dashboard
+
   {
     path: "dashboard",
     element: <Dashboard />,
     children: [
+      // admin routes
+      {
+        path: "users",
+        element: <Users />,
+      },
+
+      // user routes
       {
         path: "cart",
         element: (

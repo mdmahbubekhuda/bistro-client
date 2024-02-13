@@ -1,5 +1,9 @@
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
-import { CurrencyDollarIcon, TrashIcon } from "@heroicons/react/24/solid";
+import {
+  CurrencyDollarIcon,
+  TrashIcon,
+  UserPlusIcon,
+} from "@heroicons/react/24/solid";
 
 import {
   Card,
@@ -7,19 +11,48 @@ import {
   Typography,
   Button,
   CardBody,
-  Avatar,
   IconButton,
   Tooltip,
 } from "@material-tailwind/react";
-import useCart from "../../../hooks/useCart";
+
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { useQuery } from "react-query";
 
-const Cart = () => {
-  const [cart, refetch] = useCart();
+const Users = () => {
   const axiosSecure = useAxiosSecure();
-  const totalAmount = cart.reduce((acc, item) => item.price + acc, 0);
-  const TABLE_HEAD = ["#", "Image", "Name", "Price", "Action"];
+
+  const { data: users = [], refetch } = useQuery(["users"], async () => {
+    const res = await axiosSecure.get("users");
+    return res.data;
+  });
+
+  const TABLE_HEAD = ["#", "Name", "Email", "Role", "Action"];
+
+  const handleAdmin = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to promote to Admin!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Proceed",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.patch(`users/admin/${id}`).then((res) => {
+          if (res.data.modifiedCount > 0) {
+            refetch();
+            Swal.fire({
+              title: "Admin",
+              text: "User successfully promoted to Admin.",
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
+  };
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -32,12 +65,12 @@ const Cart = () => {
       confirmButtonText: "Proceed",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`carts/${id}`).then((res) => {
+        axiosSecure.delete(`users/${id}`).then((res) => {
           if (res.data.deletedCount > 0) {
             refetch();
             Swal.fire({
               title: "Removed!",
-              text: "Item removed from cart.",
+              text: "User successfully removed.",
               icon: "success",
             });
           }
@@ -45,19 +78,18 @@ const Cart = () => {
       }
     });
   };
-
   return (
     <>
-      <SectionTitle heading="my cart" subHeading="customize cart" />
+      <SectionTitle heading="users" subHeading="manage users" />
       <div>
         <Card className="h-full w-full">
           <CardHeader floated={false} shadow={false} className="rounded-none">
             <div className="mb-4 flex flex-col justify-between gap-8 md:flex-row md:items-center">
               <Typography variant="h5" color="blue-gray">
-                Number of Items : {cart.length}
+                Total Users : {users.length}
               </Typography>
               <Typography variant="h5" color="blue-gray">
-                Total Amount : {totalAmount}
+                Total Amount :
               </Typography>
               <Button className="flex items-center gap-3" size="sm">
                 <CurrencyDollarIcon strokeWidth={2} className="h-4 w-4" />
@@ -86,8 +118,8 @@ const Cart = () => {
                 </tr>
               </thead>
               <tbody>
-                {cart.map(({ _id, name, image, price }, index) => {
-                  const isLast = index === cart.length - 1;
+                {users.map(({ _id, name, email, role }, index) => {
+                  const isLast = index === users.length - 1;
                   const classes = isLast
                     ? "p-4"
                     : "p-4 border-b border-blue-gray-50";
@@ -96,20 +128,10 @@ const Cart = () => {
                     <tr key={_id}>
                       <td className={classes}>{index + 1}</td>
                       <td className={classes}>
-                        <Avatar
-                          src={image}
-                          variant="rounded"
-                          withBorder={true}
-                          color="blue-gray"
-                          size="lg"
-                          className="p-0.5"
-                        />
-                      </td>
-                      <td className={classes}>
                         <Typography
                           variant="small"
                           color="blue-gray"
-                          className="font-bold"
+                          className="font-normal"
                         >
                           {name}
                         </Typography>
@@ -120,11 +142,25 @@ const Cart = () => {
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {price}
+                          {email}
                         </Typography>
                       </td>
                       <td className={classes}>
-                        <Tooltip content="Remove Item">
+                        {role === "admin" ? (
+                          "ADMIN"
+                        ) : (
+                          <Tooltip content="Make Admin">
+                            <IconButton
+                              onClick={() => handleAdmin(_id)}
+                              variant="text"
+                            >
+                              <UserPlusIcon className="h-4 w-4" />
+                            </IconButton>
+                          </Tooltip>
+                        )}
+                      </td>
+                      <td className={classes}>
+                        <Tooltip content="Remove User">
                           <IconButton
                             onClick={() => handleDelete(_id)}
                             variant="text"
@@ -146,4 +182,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default Users;
