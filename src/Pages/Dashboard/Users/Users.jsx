@@ -23,7 +23,7 @@ const Users = () => {
   const axiosSecure = useAxiosSecure();
 
   const { data: users = [], refetch } = useQuery(["users"], async () => {
-    const res = await axiosSecure.get("users");
+    const res = await axiosSecure.get("/users", { withCredentials: true });
     return res.data;
   });
 
@@ -40,7 +40,7 @@ const Users = () => {
       confirmButtonText: "Proceed",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.patch(`users/admin/${id}`).then((res) => {
+        axiosSecure.patch(`/users/admin/${id}`).then((res) => {
           if (res.data.modifiedCount > 0) {
             refetch();
             Swal.fire({
@@ -65,7 +65,7 @@ const Users = () => {
       confirmButtonText: "Proceed",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`users/${id}`).then((res) => {
+        axiosSecure.delete(`/users/${id}`).then((res) => {
           if (res.data.deletedCount > 0) {
             refetch();
             Swal.fire({

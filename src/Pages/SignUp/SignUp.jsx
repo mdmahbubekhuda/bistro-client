@@ -46,7 +46,7 @@ const SignUp = () => {
         updateUserProfile(updateUserInfo).then(() => {
           // create user entry in db
           const userInfo = { name, email, role: "user" };
-          axiosPublic.post("users", userInfo).then((res) => {
+          axiosPublic.post("/users", userInfo).then((res) => {
             if (res.data.insertedId) {
               // success message
               Swal.fire({

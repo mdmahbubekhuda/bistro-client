@@ -17,7 +17,7 @@ const SocialLogin = () => {
         name: result.user?.displayName,
         role: "user",
       };
-      axiosPublic.post("users", userInfo).then((res) => {
+      axiosPublic.post("/users", userInfo).then((res) => {
         console.log(res.data);
         // navigate
         navigate(location.state?.from?.pathname || "/", { replace: true });
@@ -31,7 +31,7 @@ const SocialLogin = () => {
         name: result.user?.displayName,
         role: "user",
       };
-      axiosPublic.post("users", userInfo).then((res) => {
+      axiosPublic.post("/users", userInfo).then((res) => {
         console.log(res.data);
         // navigate
         navigate(location.state?.from?.pathname || "/", { replace: true });

@@ -18,7 +18,7 @@ const Testimonials = () => {
 
   useEffect(() => {
     (async () => {
-      const res = await axiosPublic.get("reviews");
+      const res = await axiosPublic.get("/reviews");
       const data = await res.data;
       setReviews(data);
     })();
