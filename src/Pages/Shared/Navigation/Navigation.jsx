@@ -13,7 +13,10 @@ import Swal from "sweetalert2";
 import "animate.css";
 import { useEffect, useState } from "react";
 import useCart from "../../../hooks/useCart";
-import { ShoppingCartIcon } from "@heroicons/react/24/solid";
+import {
+  AdjustmentsHorizontalIcon,
+  ShoppingCartIcon,
+} from "@heroicons/react/24/solid";
 
 const Navigation = () => {
   const { user, logout } = useAuth();
@@ -30,36 +33,41 @@ const Navigation = () => {
 
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      <Typography
-        as="li"
-        variant="h6"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <Link to={"/"} className="flex items-center">
+      <Link to={"/"}>
+        <Typography
+          as="li"
+          variant="h6"
+          color="blue-gray"
+          className="p-1 font-normal"
+        >
           Home
-        </Link>
-      </Typography>
-      <Typography
-        as="li"
-        variant="h6"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <Link to={"menu"} className="flex items-center">
+        </Typography>
+      </Link>
+      <Link to={"menu"}>
+        <Typography
+          as="li"
+          variant="h6"
+          color="blue-gray"
+          className="p-1 font-normal"
+        >
           Menu
-        </Link>
-      </Typography>
-      <Typography
-        as="li"
-        variant="h6"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <Link to={"order/dessert"} className="flex items-center">
+        </Typography>
+      </Link>
+      <Link to={"order/dessert"}>
+        <Typography
+          as="li"
+          variant="h6"
+          color="blue-gray"
+          className="p-1 font-normal"
+        >
           Order
-        </Link>
-      </Typography>
+        </Typography>
+      </Link>
+      <Link to={"dashboard"}>
+        <IconButton size="sm">
+          <AdjustmentsHorizontalIcon className="h-5 w-5" />
+        </IconButton>
+      </Link>
       <Link to={"dashboard/cart"} state={{ from: location }} replace>
         <Badge content={cart.length} placement="bottom-end">
           <IconButton size="sm">

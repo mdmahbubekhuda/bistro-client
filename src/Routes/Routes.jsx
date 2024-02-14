@@ -6,9 +6,10 @@ import Order from "../pages/Order/Order";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
 import Dashboard from "../layout/Dashboard";
+import Users from "../pages/Dashboard/Users/Users";
 import Cart from "../pages/Dashboard/Cart/Cart";
 import ProtectedRoutes from "./ProtectedRoutes";
-import Users from "../pages/Dashboard/Users/Users";
+import AdminRoutes from "./AdminRoutes";
 
 export const router = createBrowserRouter([
   // main
@@ -43,22 +44,26 @@ export const router = createBrowserRouter([
 
   {
     path: "dashboard",
-    element: <Dashboard />,
+    element: (
+      <ProtectedRoutes>
+        <Dashboard />
+      </ProtectedRoutes>
+    ),
     children: [
       // admin routes
       {
         path: "users",
-        element: <Users />,
+        element: (
+          <AdminRoutes>
+            <Users />
+          </AdminRoutes>
+        ),
       },
 
       // user routes
       {
         path: "cart",
-        element: (
-          <ProtectedRoutes>
-            <Cart />
-          </ProtectedRoutes>
-        ),
+        element: <Cart />,
       },
     ],
   },

@@ -1,7 +1,10 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar/Sidebar";
+import useAdmin from "../hooks/useAdmin";
 
 const Dashboard = () => {
+  const [isAdmin] = useAdmin();
+  console.log(isAdmin);
   return (
     <div className="flex gap-12">
       {/* dashboard sidebar */}

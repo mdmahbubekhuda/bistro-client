@@ -3,6 +3,7 @@ import { LiaGithub, LiaGoogle } from "react-icons/lia";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const SocialLogin = () => {
   const { gitHubLogin, googleLogin } = useAuth();
@@ -10,33 +11,45 @@ const SocialLogin = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleGitHub = () => {
-    gitHubLogin().then((result) => {
-      const userInfo = {
-        email: result.user?.email,
-        name: result.user?.displayName,
-        role: "user",
-      };
-      axiosPublic.post("/users", userInfo).then((res) => {
-        console.log(res.data);
+  const postLogin = async (currentUser) => {
+    const userInfo = {
+      email: await currentUser?.user?.email,
+      name: await currentUser?.user?.displayName,
+    };
+    await axiosPublic.post("/users", userInfo).then((res) => {
+      if (res.data.insertedId || res.data.userExist) {
+        Swal.fire({
+          title: "Sign In Successful",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 2000,
+
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInDown
+              animate__faster
+            `,
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutUp
+              animate__faster
+            `,
+          },
+        });
         // navigate
         navigate(location.state?.from?.pathname || "/", { replace: true });
-      });
+      }
     });
   };
+
+  const handleGitHub = () => {
+    gitHubLogin().then((result) => postLogin(result));
+  };
   const handleGoogle = () => {
-    googleLogin().then((result) => {
-      const userInfo = {
-        email: result.user?.email,
-        name: result.user?.displayName,
-        role: "user",
-      };
-      axiosPublic.post("/users", userInfo).then((res) => {
-        console.log(res.data);
-        // navigate
-        navigate(location.state?.from?.pathname || "/", { replace: true });
-      });
-    });
+    googleLogin().then((result) => postLogin(result));
   };
 
   return (

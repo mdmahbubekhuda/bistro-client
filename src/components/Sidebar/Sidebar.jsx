@@ -25,6 +25,7 @@ import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import useAuth from "../../hooks/useAuth";
 import { NavLink, useNavigate } from "react-router-dom";
 import useCart from "../../hooks/useCart";
+import useAdmin from "../../hooks/useAdmin";
 
 const Sidebar = () => {
   const [open, setOpen] = React.useState(0);
@@ -32,8 +33,8 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const [cart] = useCart();
 
-  // TODO: isAdmin will come from DB
-  const isAdmin = true;
+  const [isAdmin] = useAdmin();
+  console.log(isAdmin);
 
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);

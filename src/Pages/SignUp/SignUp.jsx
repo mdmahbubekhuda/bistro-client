@@ -45,7 +45,7 @@ const SignUp = () => {
         };
         updateUserProfile(updateUserInfo).then(() => {
           // create user entry in db
-          const userInfo = { name, email, role: "user" };
+          const userInfo = { name, email };
           axiosPublic.post("/users", userInfo).then((res) => {
             if (res.data.insertedId) {
               // success message
