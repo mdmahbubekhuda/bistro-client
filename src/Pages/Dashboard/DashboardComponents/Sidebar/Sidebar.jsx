@@ -27,10 +27,10 @@ import {
   ChevronDownIcon,
   PlusIcon,
 } from "@heroicons/react/24/outline";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../../../hooks/useAuth";
 import { NavLink, useNavigate } from "react-router-dom";
-import useCart from "../../hooks/useCart";
-import useAdmin from "../../hooks/useAdmin";
+import useCart from "../../../../hooks/useCart";
+import useAdmin from "../../../../hooks/useAdmin";
 
 const Sidebar = () => {
   const [open, setOpen] = React.useState(0);

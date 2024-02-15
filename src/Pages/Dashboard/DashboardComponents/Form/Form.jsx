@@ -84,7 +84,7 @@ const Form = ({ categories, register, handleSubmit, onSubmit, errors }) => {
 Form.propTypes = {
   categories: PropTypes.array.isRequired,
   register: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.any,
   onSubmit: PropTypes.func.isRequired,
   errors: PropTypes.any.isRequired,
 };
