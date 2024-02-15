@@ -21,7 +21,11 @@ import {
   ShoppingCartIcon,
   UserGroupIcon,
 } from "@heroicons/react/24/solid";
-import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import {
+  ChevronRightIcon,
+  ChevronDownIcon,
+  PlusIcon,
+} from "@heroicons/react/24/outline";
 import useAuth from "../../hooks/useAuth";
 import { NavLink, useNavigate } from "react-router-dom";
 import useCart from "../../hooks/useCart";
@@ -32,9 +36,7 @@ const Sidebar = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
   const [cart] = useCart();
-
   const [isAdmin] = useAdmin();
-  console.log(isAdmin);
 
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
@@ -54,7 +56,8 @@ const Sidebar = () => {
         </Typography>
       </div>
       <List>
-        {isAdmin ? (
+        {/* Admin Panel */}
+        {isAdmin && (
           // admin
           <Accordion
             open={open === 1}
@@ -76,7 +79,7 @@ const Sidebar = () => {
                   <PresentationChartBarIcon className="h-5 w-5" />
                 </ListItemPrefix>
                 <Typography color="blue-gray" className="mr-auto font-normal">
-                  Dashboard
+                  Admin Panel
                 </Typography>
               </AccordionHeader>
             </ListItem>
@@ -93,13 +96,17 @@ const Sidebar = () => {
                     </ListItemSuffix>
                   </ListItem>
                 </NavLink>
-
-                <ListItem>
-                  <ListItemPrefix>
-                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                  </ListItemPrefix>
-                  Reporting
-                </ListItem>
+                <NavLink to={"addMenuItem"}>
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+                    Menu Item
+                    <ListItemSuffix>
+                      <PlusIcon strokeWidth={3} className="h-5 w-5" />
+                    </ListItemSuffix>
+                  </ListItem>
+                </NavLink>
                 <ListItem>
                   <ListItemPrefix>
                     <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
@@ -109,51 +116,49 @@ const Sidebar = () => {
               </List>
             </AccordionBody>
           </Accordion>
-        ) : (
-          // user
-          <Accordion
-            open={open === 2}
-            icon={
-              <ChevronDownIcon
-                strokeWidth={2.5}
-                className={`mx-auto h-4 w-4 transition-transform ${
-                  open === 2 ? "rotate-180" : ""
-                }`}
-              />
-            }
-          >
-            <ListItem className="p-0" selected={open === 2}>
-              <AccordionHeader
-                onClick={() => handleOpen(2)}
-                className="border-b-0 p-3"
-              >
-                <ListItemPrefix>
-                  <ShoppingBagIcon className="h-5 w-5" />
-                </ListItemPrefix>
-                <Typography color="blue-gray" className="mr-auto font-normal">
-                  E-Commerce
-                </Typography>
-              </AccordionHeader>
-            </ListItem>
-            <AccordionBody className="py-1">
-              <List className="p-0">
-                <ListItem>
-                  <ListItemPrefix>
-                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                  </ListItemPrefix>
-                  Orders
-                </ListItem>
-                <ListItem>
-                  <ListItemPrefix>
-                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                  </ListItemPrefix>
-                  Products
-                </ListItem>
-              </List>
-            </AccordionBody>
-          </Accordion>
         )}
 
+        <Accordion
+          open={open === 2}
+          icon={
+            <ChevronDownIcon
+              strokeWidth={2.5}
+              className={`mx-auto h-4 w-4 transition-transform ${
+                open === 2 ? "rotate-180" : ""
+              }`}
+            />
+          }
+        >
+          <ListItem className="p-0" selected={open === 2}>
+            <AccordionHeader
+              onClick={() => handleOpen(2)}
+              className="border-b-0 p-3"
+            >
+              <ListItemPrefix>
+                <ShoppingBagIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              <Typography color="blue-gray" className="mr-auto font-normal">
+                E-Commerce
+              </Typography>
+            </AccordionHeader>
+          </ListItem>
+          <AccordionBody className="py-1">
+            <List className="p-0">
+              <ListItem>
+                <ListItemPrefix>
+                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                </ListItemPrefix>
+                Orders
+              </ListItem>
+              <ListItem>
+                <ListItemPrefix>
+                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                </ListItemPrefix>
+                Products
+              </ListItem>
+            </List>
+          </AccordionBody>
+        </Accordion>
         <hr className="my-2 border-blue-gray-50" />
         <NavLink to={"/"}>
           <ListItem>
@@ -163,25 +168,23 @@ const Sidebar = () => {
             Home
           </ListItem>
         </NavLink>
-        {!isAdmin && (
-          <NavLink to={"cart"}>
-            <ListItem>
-              <ListItemPrefix>
-                <ShoppingCartIcon className="h-5 w-5" />
-              </ListItemPrefix>
-              Cart
-              <ListItemSuffix>
-                <Chip
-                  value={cart.length}
-                  size="sm"
-                  variant="ghost"
-                  color="red"
-                  className="rounded-full"
-                />
-              </ListItemSuffix>
-            </ListItem>
-          </NavLink>
-        )}
+        <NavLink to={"cart"}>
+          <ListItem>
+            <ListItemPrefix>
+              <ShoppingCartIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Cart
+            <ListItemSuffix>
+              <Chip
+                value={cart.length}
+                size="sm"
+                variant="ghost"
+                color="red"
+                className="rounded-full"
+              />
+            </ListItemSuffix>
+          </ListItem>
+        </NavLink>
         <ListItem>
           <ListItemPrefix>
             <UserCircleIcon className="h-5 w-5" />

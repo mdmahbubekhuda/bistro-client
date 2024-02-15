@@ -97,9 +97,6 @@ const SignUp = () => {
         </CardHeader>
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardBody className="flex flex-col gap-4">
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Your Name
-            </Typography>
             {errors.name && (
               <Typography variant="small" color="red" className="-mb-3">
                 * Name is required
@@ -108,29 +105,11 @@ const SignUp = () => {
             <Input
               {...register("name", { required: true })}
               size="lg"
-              placeholder="John Doe"
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
-            />
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Photo URL
-            </Typography>
-
-            <Input
-              {...register("photo")}
-              size="lg"
-              placeholder="Photo URL"
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
+              label="Your Name"
             />
 
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Your Email
-            </Typography>
+            <Input {...register("photo")} size="lg" label="Photo URL" />
+
             {errors.email && (
               <Typography variant="small" color="red" className="-mb-3">
                 * Email is required
@@ -139,16 +118,9 @@ const SignUp = () => {
             <Input
               {...register("email", { required: true })}
               size="lg"
-              placeholder="example@mail.com"
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
+              label="Your Email"
             />
 
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Password
-            </Typography>
             {errors.password?.type === "required" && (
               <Typography variant="small" color="red" className="-mb-3">
                 * Password is required
@@ -173,11 +145,7 @@ const SignUp = () => {
               })}
               type="password"
               size="lg"
-              placeholder="********"
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
+              label="Password"
             />
             <Checkbox
               label={

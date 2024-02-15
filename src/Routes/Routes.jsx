@@ -10,6 +10,7 @@ import Users from "../pages/Dashboard/Users/Users";
 import Cart from "../pages/Dashboard/Cart/Cart";
 import ProtectedRoutes from "./ProtectedRoutes";
 import AdminRoutes from "./AdminRoutes";
+import AddMenuItem from "../pages/Dashboard/AddMenuItem/AddMenuItem";
 
 export const router = createBrowserRouter([
   // main
@@ -56,6 +57,14 @@ export const router = createBrowserRouter([
         element: (
           <AdminRoutes>
             <Users />
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: "addMenuItem",
+        element: (
+          <AdminRoutes>
+            <AddMenuItem />
           </AdminRoutes>
         ),
       },
