@@ -12,7 +12,6 @@ import {
   AccordionBody,
 } from "@material-tailwind/react";
 import {
-  PresentationChartBarIcon,
   ShoppingBagIcon,
   UserCircleIcon,
   Cog6ToothIcon,
@@ -20,6 +19,8 @@ import {
   HomeIcon,
   ShoppingCartIcon,
   UserGroupIcon,
+  WrenchScrewdriverIcon,
+  ClipboardDocumentListIcon,
 } from "@heroicons/react/24/solid";
 import {
   ChevronRightIcon,
@@ -76,7 +77,7 @@ const Sidebar = () => {
                 className="border-b-0 p-3"
               >
                 <ListItemPrefix>
-                  <PresentationChartBarIcon className="h-5 w-5" />
+                  <WrenchScrewdriverIcon className="h-5 w-5" />
                 </ListItemPrefix>
                 <Typography color="blue-gray" className="mr-auto font-normal">
                   Admin Panel
@@ -96,23 +97,31 @@ const Sidebar = () => {
                     </ListItemSuffix>
                   </ListItem>
                 </NavLink>
-                <NavLink to={"addMenuItem"}>
+                <NavLink to={"addMenu"}>
                   <ListItem>
                     <ListItemPrefix>
                       <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                     </ListItemPrefix>
-                    Menu Item
+                    Add Menu
                     <ListItemSuffix>
                       <PlusIcon strokeWidth={3} className="h-5 w-5" />
                     </ListItemSuffix>
                   </ListItem>
                 </NavLink>
-                <ListItem>
-                  <ListItemPrefix>
-                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                  </ListItemPrefix>
-                  Projects
-                </ListItem>
+                <NavLink to={"manageMenu"}>
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+                    Manage Menu
+                    <ListItemSuffix>
+                      <ClipboardDocumentListIcon
+                        strokeWidth={3}
+                        className="h-5 w-5"
+                      />
+                    </ListItemSuffix>
+                  </ListItem>
+                </NavLink>
               </List>
             </AccordionBody>
           </Accordion>

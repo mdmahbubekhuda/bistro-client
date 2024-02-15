@@ -61,12 +61,15 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "addMenuItem",
+        path: "addMenu",
         element: (
           <AdminRoutes>
             <AddMenuItem />
           </AdminRoutes>
         ),
+      },
+      {
+        path: "manageMenu",
       },
 
       // user routes

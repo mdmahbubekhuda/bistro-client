@@ -9,16 +9,8 @@ import {
   Badge,
   Textarea,
 } from "@material-tailwind/react";
-import { useForm } from "react-hook-form";
 
-const Form = ({ categories }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => console.log(data);
-
+const Form = ({ categories, register, handleSubmit, onSubmit, errors }) => {
   return (
     <Card color="transparent" shadow={true} className="mb-6">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -91,5 +83,9 @@ const Form = ({ categories }) => {
 
 Form.propTypes = {
   categories: PropTypes.array.isRequired,
+  register: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  errors: PropTypes.any.isRequired,
 };
 export default Form;
