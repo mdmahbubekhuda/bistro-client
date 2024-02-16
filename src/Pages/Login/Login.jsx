@@ -32,42 +32,61 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm();
 
   const onSubmit = (data) => {
     const { email, password } = data;
 
-    login(email, password).then((res) => {
-      const user = res.user;
-      if (user) {
-        Swal.fire({
-          title: "Sign In Successful",
-          icon: "success",
-          showConfirmButton: false,
-          timer: 2000,
+    login(email, password)
+      .then((res) => {
+        if (res.user) {
+          Swal.fire({
+            title: "Sign In Successful",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 2000,
 
-          showClass: {
-            popup: `
+            showClass: {
+              popup: `
               animate__animated
               animate__fadeInDown
               animate__faster
             `,
-          },
-          hideClass: {
-            popup: `
+            },
+            hideClass: {
+              popup: `
               animate__animated
               animate__fadeOutUp
               animate__faster
             `,
+            },
+          });
+          navigate(location.state?.from?.pathname || "/", { replace: true });
+        }
+      })
+      .catch((err) => {
+        Swal.fire({
+          title: "Ooops...",
+          icon: "error",
+          text: `${err.message}`,
+          showClass: {
+            popup: `
+            animate__animated
+            animate__fadeInDown
+            animate__faster
+          `,
+          },
+          hideClass: {
+            popup: `
+            animate__animated
+            animate__fadeOutUp
+            animate__faster
+          `,
           },
         });
-        navigate(location.state?.from?.pathname || "/", { replace: true });
-      }
-    });
+      });
 
     setLoginDisabled(true);
-    reset();
   };
 
   useEffect(() => {

@@ -11,7 +11,7 @@ const Cart = () => {
   const [cart, refetch] = useCart();
   const axiosSecure = useAxiosSecure();
   const totalAmount = cart.reduce((acc, item) => item.price + acc, 0);
-  const TABLE_HEAD = ["#", "image", "name", "price", "action"];
+  const TABLE_HEAD = ["#", "image", "name", "price", "remove"];
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -22,18 +22,17 @@ const Cart = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Proceed",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/carts/${id}`).then((res) => {
-          if (res.data.deletedCount > 0) {
-            refetch();
-            Swal.fire({
-              title: "Removed!",
-              text: "Item removed from cart.",
-              icon: "success",
-            });
-          }
-        });
+        const res = await axiosSecure.delete(`/carts/${id}`);
+        if (res.data.deletedCount) {
+          refetch();
+          Swal.fire({
+            title: "Removed!",
+            text: "Item removed from cart.",
+            icon: "success",
+          });
+        }
       }
     });
   };

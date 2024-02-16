@@ -46,10 +46,54 @@ const SocialLogin = () => {
   };
 
   const handleGitHub = () => {
-    gitHubLogin().then((result) => postLogin(result));
+    gitHubLogin()
+      .then((result) => postLogin(result))
+      .catch((err) => {
+        Swal.fire({
+          title: "Ooops...",
+          icon: "error",
+          text: `${err.message}`,
+          showClass: {
+            popup: `
+          animate__animated
+          animate__fadeInDown
+          animate__faster
+        `,
+          },
+          hideClass: {
+            popup: `
+          animate__animated
+          animate__fadeOutUp
+          animate__faster
+        `,
+          },
+        });
+      });
   };
   const handleGoogle = () => {
-    googleLogin().then((result) => postLogin(result));
+    googleLogin()
+      .then((result) => postLogin(result))
+      .catch((err) => {
+        Swal.fire({
+          title: "Ooops...",
+          icon: "error",
+          text: `${err.message}`,
+          showClass: {
+            popup: `
+          animate__animated
+          animate__fadeInDown
+          animate__faster
+        `,
+          },
+          hideClass: {
+            popup: `
+          animate__animated
+          animate__fadeOutUp
+          animate__faster
+        `,
+          },
+        });
+      });
   };
 
   return (

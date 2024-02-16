@@ -65,19 +65,15 @@ const AuthProvider = ({ children }) => {
 
       // create access-token
       if (currentUser) {
-        axiosPublic
-          .post("/jwt", { userEmail }, { withCredentials: true })
-          .then((res) => {
-            console.log("token created on login", res.data);
-          });
+        axiosPublic.post("/jwt", { userEmail }, { withCredentials: true });
       }
       // remove access-token
       if (!currentUser) {
-        axiosPublic
-          .post("/jwt/remove", { userEmail }, { withCredentials: true })
-          .then((res) => {
-            console.log("token removed on logout", res.data);
-          });
+        axiosPublic.post(
+          "/jwt/remove",
+          { userEmail },
+          { withCredentials: true }
+        );
       }
     });
 

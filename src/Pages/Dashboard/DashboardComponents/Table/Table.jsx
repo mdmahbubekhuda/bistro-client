@@ -9,6 +9,7 @@ import {
   Tooltip,
   Avatar,
 } from "@material-tailwind/react";
+import { ArrowPathIcon } from "@heroicons/react/24/outline";
 
 const Table = ({
   TABLE_HEAD,
@@ -16,6 +17,7 @@ const Table = ({
   Table_Body_Data,
   handleAdmin,
   handleDelete,
+  handleUpdate,
 }) => {
   return (
     <Card className="h-full w-full">
@@ -27,7 +29,7 @@ const Table = ({
               {TABLE_HEAD.map((head) => (
                 <th
                   key={head}
-                  className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
+                  className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 capitalize"
                 >
                   <Typography
                     variant="small"
@@ -114,15 +116,28 @@ const Table = ({
                       )}
                     </td>
                   )}
+                  {handleUpdate && (
+                    <td className={classes}>
+                      <Tooltip content="Modify">
+                        <IconButton
+                          onClick={() => handleUpdate(tableData._id)}
+                          variant="text"
+                          color="blue"
+                        >
+                          <ArrowPathIcon className="h-5 w-5" />
+                        </IconButton>
+                      </Tooltip>
+                    </td>
+                  )}
                   {handleDelete && (
                     <td className={classes}>
-                      <Tooltip content="Remove User">
+                      <Tooltip content="Remove">
                         <IconButton
                           onClick={() => handleDelete(tableData._id)}
                           variant="text"
                           color="red"
                         >
-                          <TrashIcon className="h-4 w-4" />
+                          <TrashIcon className="h-5 w-5" />
                         </IconButton>
                       </Tooltip>
                     </td>
@@ -143,6 +158,7 @@ Table.propTypes = {
   Table_Body_Data: PropTypes.array.isRequired,
   handleAdmin: PropTypes.func,
   handleDelete: PropTypes.func,
+  handleUpdate: PropTypes.func,
 };
 
 export default Table;

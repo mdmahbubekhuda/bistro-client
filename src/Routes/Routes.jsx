@@ -11,6 +11,8 @@ import Cart from "../pages/Dashboard/Cart/Cart";
 import ProtectedRoutes from "./ProtectedRoutes";
 import AdminRoutes from "./AdminRoutes";
 import AddMenuItem from "../pages/Dashboard/AddMenuItem/AddMenuItem";
+import ManageMenuItems from "../pages/Dashboard/ManageMenuItems/ManageMenuItems";
+import UpdateMenu from "../pages/Dashboard/UpdateMenu/UpdateMenu";
 
 export const router = createBrowserRouter([
   // main
@@ -70,6 +72,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "manageMenu",
+        element: (
+          <AdminRoutes>
+            <ManageMenuItems />
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: "manageMenu/updateMenu/:id",
+        element: (
+          <AdminRoutes>
+            <UpdateMenu />
+          </AdminRoutes>
+        ),
       },
 
       // user routes

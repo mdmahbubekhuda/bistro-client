@@ -27,31 +27,59 @@ const SignUp = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm();
 
   const onSubmit = (data) => {
     const { name, photo, email, password } = data;
 
     // create user
-    createUser(email, password).then((res) => {
-      const user = res.user;
+    createUser(email, password)
+      .then((res) => {
+        const user = res.user;
 
-      // update user profile
-      if (user) {
-        const updateUserInfo = {
-          displayName: name,
-          photoURL: photo,
-        };
-        updateUserProfile(updateUserInfo).then(() => {
-          // create user entry in db
-          const userInfo = { name, email };
-          axiosPublic.post("/users", userInfo).then((res) => {
-            if (res.data.insertedId) {
-              // success message
+        // update user profile
+        if (user) {
+          const updateUserInfo = {
+            displayName: name,
+            photoURL: photo,
+          };
+          updateUserProfile(updateUserInfo)
+            .then(() => {
+              // create user entry in db
+              const userInfo = { name, email };
+              axiosPublic.post("/users", userInfo).then((res) => {
+                if (res.data.insertedId) {
+                  // success message
+                  Swal.fire({
+                    title: "Registered Successful",
+                    icon: "success",
+                    showClass: {
+                      popup: `
+                animate__animated
+                animate__fadeInDown
+                animate__faster
+              `,
+                    },
+                    hideClass: {
+                      popup: `
+                animate__animated
+                animate__fadeOutUp
+                animate__faster
+              `,
+                    },
+                  });
+                  // navigate to home
+                  navigate(location.state?.from?.pathname || "/", {
+                    replace: true,
+                  });
+                }
+              });
+            })
+            .catch((err) => {
               Swal.fire({
-                title: "Registered Successful",
-                icon: "success",
+                title: "Ooops...",
+                icon: "error",
+                text: `${err.message}`,
                 showClass: {
                   popup: `
                 animate__animated
@@ -67,17 +95,30 @@ const SignUp = () => {
               `,
                 },
               });
-              // navigate to home
-              navigate(location.state?.from?.pathname || "/", {
-                replace: true,
-              });
-            }
-          });
+            });
+        }
+      })
+      .catch((err) => {
+        Swal.fire({
+          title: "Ooops...",
+          icon: "error",
+          text: `${err.message}`,
+          showClass: {
+            popup: `
+          animate__animated
+          animate__fadeInDown
+          animate__faster
+        `,
+          },
+          hideClass: {
+            popup: `
+          animate__animated
+          animate__fadeOutUp
+          animate__faster
+        `,
+          },
         });
-      }
-    });
-    // reset form
-    reset();
+      });
   };
 
   return (

@@ -16,7 +16,7 @@ const Users = () => {
     return res.data;
   });
 
-  const TABLE_HEAD = ["#", "name", "email", "role", "action"];
+  const TABLE_HEAD = ["#", "name", "email", "role", "remove"];
 
   const handleAdmin = (id) => {
     Swal.fire({
@@ -52,18 +52,17 @@ const Users = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Proceed",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/users/${id}`).then((res) => {
-          if (res.data.deletedCount > 0) {
-            refetch();
-            Swal.fire({
-              title: "Removed!",
-              text: "User successfully removed.",
-              icon: "success",
-            });
-          }
-        });
+        const res = await axiosSecure.delete(`/users/${id}`);
+        if (res.data.deletedCount) {
+          refetch();
+          Swal.fire({
+            title: "Removed!",
+            text: "User successfully removed.",
+            icon: "success",
+          });
+        }
       }
     });
   };

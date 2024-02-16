@@ -83,6 +83,8 @@ const Navigation = () => {
       Swal.fire({
         title: "Sign Out Successful",
         icon: "success",
+        showConfirmButton: false,
+        timer: 2000,
         showClass: {
           popup: `
             animate__animated
