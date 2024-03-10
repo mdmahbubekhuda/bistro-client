@@ -1,8 +1,5 @@
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
-import { CurrencyDollarIcon } from "@heroicons/react/24/solid";
-
-import { CardHeader, Typography, Button } from "@material-tailwind/react";
-
+import { CardHeader, Typography } from "@material-tailwind/react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useQuery } from "react-query";
