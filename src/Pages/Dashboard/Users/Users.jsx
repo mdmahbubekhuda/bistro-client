@@ -16,8 +16,6 @@ const Users = () => {
     return res.data;
   });
 
-  const TABLE_HEAD = ["#", "name", "email", "role", "remove"];
-
   const handleAdmin = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -67,16 +65,14 @@ const Users = () => {
     });
   };
 
+  const TABLE_HEAD = ["#", "name", "email", "role", "remove"];
+
   const Table_Card_Header = (
     <CardHeader floated={false} shadow={false} className="rounded-none">
       <div className="mb-4 flex flex-col justify-between gap-8 md:flex-row md:items-center">
         <Typography variant="h5" color="blue-gray">
           Total Users : {users.length}
         </Typography>
-        <Button className="flex items-center gap-3" size="sm">
-          <CurrencyDollarIcon strokeWidth={2} className="h-4 w-4" />
-          Make Payment
-        </Button>
       </div>
     </CardHeader>
   );

@@ -24,6 +24,8 @@ const Navigation = () => {
   const [cart] = useCart();
   const location = useLocation();
 
+  console.log(location.pathname);
+
   useEffect(() => {
     window.addEventListener(
       "resize",
@@ -33,35 +35,35 @@ const Navigation = () => {
 
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      <Link to={"/"}>
-        <Typography
-          as="li"
-          variant="h6"
-          color="blue-gray"
-          className="p-1 font-normal"
-        >
-          Home
-        </Typography>
+      <Link
+        to={"/"}
+        className={
+          location.pathname === "/"
+            ? "py-1 px-2 rounded-md bg-gradient-to-tr from-gray-900 to-gray-800 text-white shadow-md shadow-gray-900/10 transition"
+            : ""
+        }
+      >
+        Home
       </Link>
-      <Link to={"menu"}>
-        <Typography
-          as="li"
-          variant="h6"
-          color="blue-gray"
-          className="p-1 font-normal"
-        >
-          Menu
-        </Typography>
+      <Link
+        to={"menu"}
+        className={
+          location.pathname === "/menu"
+            ? "py-1 px-2 rounded-md bg-gradient-to-tr from-gray-900 to-gray-800 text-white shadow-md shadow-gray-900/10 transition"
+            : ""
+        }
+      >
+        Menu
       </Link>
-      <Link to={"order/dessert"}>
-        <Typography
-          as="li"
-          variant="h6"
-          color="blue-gray"
-          className="p-1 font-normal"
-        >
-          Order
-        </Typography>
+      <Link
+        to={"order/dessert"}
+        className={
+          location.pathname.startsWith("/order")
+            ? "py-1 px-2 rounded-md bg-gradient-to-tr from-gray-900 to-gray-800 text-white shadow-md shadow-gray-900/10 transition"
+            : ""
+        }
+      >
+        Order
       </Link>
       <Link to={"dashboard"}>
         <IconButton size="sm">
