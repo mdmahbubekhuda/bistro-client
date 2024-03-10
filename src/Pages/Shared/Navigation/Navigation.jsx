@@ -24,8 +24,6 @@ const Navigation = () => {
   const [cart] = useCart();
   const location = useLocation();
 
-  console.log(location.pathname);
-
   useEffect(() => {
     window.addEventListener(
       "resize",
@@ -34,13 +32,16 @@ const Navigation = () => {
   }, []);
 
   const navList = (
-    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+    <ul
+      className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6"
+      onClick={() => setOpenNav(false)}
+    >
       <Link
         to={"/"}
         className={
           location.pathname === "/"
             ? "py-1 px-2 rounded-md bg-gradient-to-tr from-gray-900 to-gray-800 text-white shadow-md shadow-gray-900/10 transition"
-            : ""
+            : "text-gray-900"
         }
       >
         Home
@@ -50,26 +51,18 @@ const Navigation = () => {
         className={
           location.pathname === "/menu"
             ? "py-1 px-2 rounded-md bg-gradient-to-tr from-gray-900 to-gray-800 text-white shadow-md shadow-gray-900/10 transition"
-            : ""
+            : "text-gray-900"
         }
       >
         Menu
       </Link>
-      <Link
-        to={"order/dessert"}
-        className={
-          location.pathname.startsWith("/order")
-            ? "py-1 px-2 rounded-md bg-gradient-to-tr from-gray-900 to-gray-800 text-white shadow-md shadow-gray-900/10 transition"
-            : ""
-        }
-      >
-        Order
-      </Link>
+
       <Link to={"dashboard"}>
         <IconButton size="sm">
           <AdjustmentsHorizontalIcon className="h-5 w-5" />
         </IconButton>
       </Link>
+
       <Link to={"dashboard/cart"} state={{ from: location }} replace>
         <Badge content={cart.length} placement="bottom-end">
           <IconButton size="sm">

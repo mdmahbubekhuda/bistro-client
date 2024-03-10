@@ -10,6 +10,12 @@ const useMenu = () => {
       return res.data;
     },
   });
-  return [menu, refetch];
+
+  const menuCategories = menu
+    .map((item) => item.category)
+    .filter((cat, idx, arr) => arr.indexOf(cat) === idx)
+    .sort();
+
+  return { menu, refetch, menuCategories };
 };
 export default useMenu;

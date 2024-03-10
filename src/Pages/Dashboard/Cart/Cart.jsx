@@ -44,7 +44,7 @@ const Cart = () => {
           Number of Items : {cart.length}
         </Typography>
         <Typography variant="h5" color="blue-gray">
-          Total Amount : {totalAmount}
+          Total Amount : $ {totalAmount.toFixed(2)}
         </Typography>
         <Button className="flex items-center gap-3" size="sm">
           <CurrencyDollarIcon strokeWidth={2} className="h-4 w-4" />

@@ -13,7 +13,7 @@ const MenuItems = ({
   subHeading,
   menuCategory,
 }) => {
-  const [menu] = useMenu();
+  const { menu } = useMenu();
   const filteredByCategory = menu.filter(
     (item) => item.category === menuCategory
   );

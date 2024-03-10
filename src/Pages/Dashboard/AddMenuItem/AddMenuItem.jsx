@@ -13,13 +13,9 @@ const imageHostingURL = `https://api.imgbb.com/1/upload?key=${imageAPIKey}`;
 
 const AddMenuItem = () => {
   const { user } = useAuth();
-  const [menu, refetch] = useMenu();
+  const { refetch, menuCategories } = useMenu();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
-
-  const categories = menu
-    .map((category) => category.category)
-    .filter((item, idx, arr) => arr.indexOf(item) === idx);
 
   // react hook form
   const {
@@ -85,7 +81,7 @@ const AddMenuItem = () => {
     <div>
       <SectionTitle heading={"menu"} subHeading={"add an item"} />
       <Form
-        categories={categories}
+        categories={menuCategories}
         register={register}
         handleSubmit={handleSubmit}
         onSubmit={onSubmit}

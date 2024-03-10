@@ -7,7 +7,7 @@ import Table from "../DashboardComponents/Table/Table";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const ManageMenuItems = () => {
-  const [menu, refetch] = useMenu();
+  const { menu, refetch } = useMenu();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const location = useLocation();

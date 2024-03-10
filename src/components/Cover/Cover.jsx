@@ -1,26 +1,26 @@
 import PropTypes from "prop-types";
 import { Parallax } from "react-parallax";
+import SearchBar from "../SearchBar/SearchBar";
 
 const Cover = ({ coverImage, coverTitle, coverText }) => {
   return (
     <Parallax
       blur={{ min: -15, max: 15 }}
       bgImage={coverImage}
-      bgImageAlt="menu"
       strength={-200}
+      bgImageStyle={{ objectFit: "cover" }}
     >
-      <div className="hero md:min-h-screen">
-        <div className="hero-overlay bg-opacity-60"></div>
-        <div className="hero-content text-center text-neutral-content">
-          <div className="max-w-md">
-            <h1 className="mb-5 text-5xl font-bold uppercase">{coverTitle}</h1>
-            <p className="mb-5">
-              {coverText ||
-                "Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi."}
-            </p>
+      <section className="grid h-[60vh]">
+        {/* dark overlay */}
+        <div className="bg-black col-start-1 row-start-1 z-10 opacity-50"></div>
+        {/* content */}
+        <div className="col-start-1 row-start-1 z-20">
+          <div className="flex flex-col gap-8 justify-center h-full items-center px-8 md:px-36 text-white">
+            <h1 className="text-2xl lg:text-4xl capitalize">{coverTitle}</h1>
+            {coverText || <SearchBar />}
           </div>
         </div>
-      </div>
+      </section>
     </Parallax>
   );
 };
