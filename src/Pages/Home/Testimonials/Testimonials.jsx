@@ -22,7 +22,7 @@ const Testimonials = () => {
       const data = await res.data;
       setReviews(data);
     })();
-  });
+  }, [axiosPublic]);
 
   return (
     <section className="my-12">

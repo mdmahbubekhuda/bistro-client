@@ -66,7 +66,7 @@ const FoodCard = ({ foodItem }) => {
   return (
     <Card className="mt-6 w-72 lg:w-80 h-full">
       <CardHeader color="blue-gray" className="relative h-56">
-        <img src={image} alt="card-image" />
+        <img src={image} alt="food-image" className="h-full" />
       </CardHeader>
       <CardBody className="flex-1">
         <Typography variant="h5" color="blue-gray" className="mb-2">

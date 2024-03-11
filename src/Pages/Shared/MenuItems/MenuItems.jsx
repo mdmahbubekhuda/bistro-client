@@ -17,6 +17,7 @@ const MenuItems = ({
   const filteredByCategory = menu.filter(
     (item) => item.category === menuCategory
   );
+  console.log(filteredByCategory);
   return (
     <>
       {coverImage && (
@@ -30,12 +31,12 @@ const MenuItems = ({
         <SectionTitle heading={heading} subHeading={subHeading} />
       )}
       <div className="grid md:grid-cols-2 gap-8 px-4">
-        {filteredByCategory.slice(0, 6).map((item) => (
+        {filteredByCategory.slice(0, 4).map((item) => (
           <MenuItem key={item._id} item={item} />
         ))}
       </div>
       <div className="w-full text-center">
-        <Link to={`/order/${menuCategory}`}>
+        <Link to={"menu"}>
           <button className="btn btn-outline border-0 border-b-4">
             View Full Menu
           </button>
