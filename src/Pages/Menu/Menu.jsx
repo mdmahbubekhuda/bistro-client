@@ -9,6 +9,7 @@ import {
   TabsBody,
   TabsHeader,
 } from "@material-tailwind/react";
+import FoodCard from "../../components/FoodCard/FoodCard";
 
 const Menu = () => {
   const { menu, menuCategories } = useMenu();
@@ -25,7 +26,7 @@ const Menu = () => {
         coverImage={coverImage}
         coverTitle={"search our menu"}
       />
-      <div>
+      <div className="mt-20">
         <Tabs value={activeTab}>
           <TabsHeader>
             {menuCategories.map((cat) => (
@@ -34,10 +35,14 @@ const Menu = () => {
               </Tab>
             ))}
           </TabsHeader>
-          <TabsBody>
-            {menu.map((menu) => (
-              <TabPanel key={menu.category} value={menu.category}>
-                {menu.category} {menu.name}
+          <TabsBody className="grid grid-cols-3">
+            {menu.map((foodItem) => (
+              <TabPanel
+                key={foodItem.category}
+                value={foodItem.category}
+                className="flex place-content-center w-full h-full"
+              >
+                <FoodCard foodItem={foodItem} />
               </TabPanel>
             ))}
           </TabsBody>
