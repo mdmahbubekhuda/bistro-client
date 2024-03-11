@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-
 import {
   Card,
   CardHeader,
@@ -8,11 +7,11 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
-import useAuth from "../../../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import useCart from "../../../hooks/useCart";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useCart from "../../hooks/useCart";
 
 const FoodCard = ({ foodItem }) => {
   const { name, image, recipe, price } = foodItem;

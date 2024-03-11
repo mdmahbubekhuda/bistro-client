@@ -86,11 +86,11 @@ const SearchBar = ({ menu, setSearchItems }) => {
       </div>
       <div className="w-full max-w-[24rem]">
         <Card
-          className={`bg-inherit border max-h-60 overflow-y-scroll ${
+          className={`bg-inherit border max-h-60 ${
             showSuggestions ? "visible" : "invisible"
           } `}
         >
-          <List className="text-white">
+          <List className="text-white overflow-y-auto">
             {suggestions.map((item) => (
               <ListItem
                 key={item._id}
