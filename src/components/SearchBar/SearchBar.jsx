@@ -11,12 +11,12 @@ import { useState } from "react";
 
 const SearchBar = ({ menu, setSearchItems }) => {
   const [text, setText] = useState("");
-  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [isShow, setIsShow] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
 
   const onChange = (searchText) => {
     setText(searchText);
-    setShowSuggestions(true);
+    setIsShow(true);
 
     const suggestionsByName = menu.filter((item) => {
       if (!searchText) return false;
@@ -25,11 +25,11 @@ const SearchBar = ({ menu, setSearchItems }) => {
 
     setSuggestions(suggestionsByName);
 
-    if (!searchText || !suggestionsByName.length) setShowSuggestions(false);
+    if (!searchText || !suggestionsByName.length) setIsShow(false);
   };
 
   const handleSearch = () => {
-    setShowSuggestions(false);
+    setIsShow(false);
     setSearchItems(suggestions);
   };
 
@@ -65,7 +65,7 @@ const SearchBar = ({ menu, setSearchItems }) => {
             onKeyDown={(e) => {
               if (e.key === "Enter") handleSearch();
             }}
-            error={!suggestions.length && text}
+            error={!suggestions.length && text ? true : false}
             color="white"
             className="pr-20"
             containerProps={{
@@ -86,11 +86,11 @@ const SearchBar = ({ menu, setSearchItems }) => {
       </div>
       <div className="w-full max-w-[24rem]">
         <Card
-          className={`bg-inherit border max-h-60 ${
-            showSuggestions ? "visible" : "invisible"
+          className={`bg-inherit border max-h-60 overflow-y-auto ${
+            isShow ? "visible" : "invisible"
           } `}
         >
-          <List className="text-white overflow-y-auto">
+          <List className="text-white">
             {suggestions.map((item) => (
               <ListItem
                 key={item._id}
