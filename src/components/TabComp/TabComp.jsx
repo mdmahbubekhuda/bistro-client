@@ -6,7 +6,6 @@ import {
   TabsBody,
   TabsHeader,
 } from "@material-tailwind/react";
-
 import FoodCard from "../../components/FoodCard/FoodCard";
 import { useState } from "react";
 import Pagination from "../Pagination/Pagination";
@@ -17,9 +16,10 @@ const TabComp = ({ tabs, defaultTab, tabContents }) => {
   //   pagination logic
   const [activePage, setActivePage] = useState(1);
   const itemsPerPage = 6;
-  const totalItemsPerTab = tabContents.filter(
-    (item) => item.category === activeTab
-  ).length;
+  const totalItemsPerTab =
+    activeTab === "Your Search Results"
+      ? tabContents.length
+      : tabContents.filter((item) => item.category === activeTab).length;
 
   return (
     <>
@@ -57,7 +57,10 @@ const TabComp = ({ tabs, defaultTab, tabContents }) => {
             <TabPanel key={tab} value={tab}>
               <div className="grid grid-cols-3 gap-y-12 justify-items-center">
                 {tabContents
-                  .filter((item) => item.category === tab)
+                  .filter((item) => {
+                    if (activeTab === "Your Search Results") return true;
+                    return item.category === tab;
+                  })
                   .slice(
                     activePage * itemsPerPage - itemsPerPage,
                     activePage * itemsPerPage

@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
-import useMenu from "../../../hooks/useMenu";
 import MenuItem from "./MenuItem";
 import Cover from "../../../components/Cover/Cover";
 import { Link } from "react-router-dom";
+import useMenu from "../../../hooks/useMenu";
 
 const MenuItems = ({
   coverImage,
@@ -36,7 +36,7 @@ const MenuItems = ({
         ))}
       </div>
       <div className="w-full text-center">
-        <Link to={"menu"}>
+        <Link to={"menu?category=popular"}>
           <button className="btn btn-outline border-0 border-b-4">
             View Full Menu
           </button>

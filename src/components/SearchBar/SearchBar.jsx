@@ -9,28 +9,42 @@ import {
 } from "@material-tailwind/react";
 import { useState } from "react";
 
+let suggestions = [];
+
 const SearchBar = ({ menu, setSearchItems }) => {
   const [text, setText] = useState("");
-  const [isShow, setIsShow] = useState(false);
-  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  // for search suggestions
+  const menuNames = menu.map((item) => {
+    return { _id: item._id, name: item.name };
+  });
 
   const onChange = (searchText) => {
-    setText(searchText);
-    setIsShow(true);
-
-    const suggestionsByName = menu.filter((item) => {
+    suggestions = menuNames.filter((item) => {
       if (!searchText) return false;
       return item.name.toLowerCase().includes(searchText.toLowerCase());
     });
 
-    setSuggestions(suggestionsByName);
+    if (searchText && suggestions.length) setShowSuggestions(true);
+    else setShowSuggestions(false);
 
-    if (!searchText || !suggestionsByName.length) setIsShow(false);
+    if (!searchText) handleSearch();
   };
 
   const handleSearch = () => {
-    setIsShow(false);
-    setSearchItems(suggestions);
+    setShowSuggestions(false);
+
+    const searchedItems = menu.filter((item) =>
+      suggestions.find((suggestion) => suggestion._id === item._id)
+    );
+    setSearchItems(searchedItems);
+  };
+
+  const handleClear = () => {
+    suggestions = [];
+    setText("");
+    handleSearch();
   };
 
   const customStyle = {
@@ -61,9 +75,14 @@ const SearchBar = ({ menu, setSearchItems }) => {
                 ? "Search result not found..."
                 : "Type here..."
             }
-            onChange={({ target }) => onChange(target.value)}
+            onChange={({ target }) => {
+              setText(target.value);
+              onChange(target.value);
+            }}
             onKeyDown={(e) => {
-              if (e.key === "Enter") handleSearch();
+              if (e.key === "Enter") {
+                handleSearch();
+              }
             }}
             error={!suggestions.length && text ? true : false}
             color="white"
@@ -75,6 +94,16 @@ const SearchBar = ({ menu, setSearchItems }) => {
         </ThemeProvider>
 
         <Button
+          onClick={handleClear}
+          size="sm"
+          color="gray"
+          className={`!absolute px-2 py-1 right-24 top-2 rounded ${
+            text && suggestions.length ? "visible" : "invisible"
+          }`}
+        >
+          X
+        </Button>
+        <Button
           onClick={handleSearch}
           size="sm"
           color={text ? "gray" : "blue-gray"}
@@ -84,10 +113,13 @@ const SearchBar = ({ menu, setSearchItems }) => {
           Search
         </Button>
       </div>
+
+      {/* search suggestions */}
+
       <div className="w-full max-w-[24rem]">
         <Card
           className={`bg-inherit border max-h-60 overflow-y-auto ${
-            isShow ? "visible" : "invisible"
+            showSuggestions ? "visible" : "invisible"
           } `}
         >
           <List className="text-white">
@@ -96,6 +128,7 @@ const SearchBar = ({ menu, setSearchItems }) => {
                 key={item._id}
                 onClick={() => {
                   setText(item.name);
+                  onChange(item.name);
                   handleSearch();
                 }}
               >

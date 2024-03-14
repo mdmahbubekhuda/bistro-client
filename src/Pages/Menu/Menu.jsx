@@ -1,14 +1,14 @@
 import Cover from "../../components/Cover/Cover";
 import coverImage from "../../assets/menu/banner3.jpg";
-import useMenu from "../../hooks/useMenu";
 import { useState } from "react";
 import TabComp from "../../components/TabComp/TabComp";
+import useMenu from "../../hooks/useMenu";
+import { useSearchParams } from "react-router-dom";
 
 const Menu = () => {
   const { menu, menuCategories } = useMenu();
   const [searchItems, setSearchItems] = useState([]);
-
-  console.log(searchItems);
+  const [searchParams] = useSearchParams();
 
   return (
     <>
@@ -20,9 +20,16 @@ const Menu = () => {
       />
       <div className="my-2">
         <TabComp
-          tabs={menuCategories}
-          defaultTab="dessert"
-          tabContents={menu}
+          key={searchItems.length}
+          tabs={searchItems.length ? ["Your Search Results"] : menuCategories}
+          defaultTab={
+            searchItems.length
+              ? "Your Search Results"
+              : searchParams.get("category")
+              ? searchParams.get("category")
+              : "dessert"
+          }
+          tabContents={searchItems.length ? searchItems : menu}
         />
       </div>
     </>

@@ -2,9 +2,9 @@ import { CardHeader, Typography } from "@material-tailwind/react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
-import useMenu from "../../../hooks/useMenu";
 import Table from "../DashboardComponents/Table/Table";
 import { useLocation, useNavigate } from "react-router-dom";
+import useMenu from "../../../hooks/useMenu";
 
 const ManageMenuItems = () => {
   const { menu, refetch } = useMenu();
