@@ -17,7 +17,7 @@ const MenuItems = ({
   const filteredByCategory = menu.filter(
     (item) => item.category === menuCategory
   );
-  console.log(filteredByCategory);
+
   return (
     <>
       {coverImage && (

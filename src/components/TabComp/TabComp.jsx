@@ -25,6 +25,7 @@ const TabComp = ({ tabs, defaultTab, tabContents }) => {
     <>
       <Tabs value={activeTab}>
         <TabsHeader
+          className="flex-wrap md:flex-nowrap justify-center gap-2 md:gap-0"
           indicatorProps={{
             className: "bg-gradient-to-tr from-gray-900 to-gray-800",
           }}
@@ -37,9 +38,9 @@ const TabComp = ({ tabs, defaultTab, tabContents }) => {
                 setActiveTab(tab);
                 setActivePage(1);
               }}
-              className={
+              className={`w-fit md:w-full ${
                 activeTab === tab ? "text-white" : "text-blue-gray-900"
-              }
+              }`}
             >
               {tab.toUpperCase()}
             </Tab>
@@ -55,7 +56,7 @@ const TabComp = ({ tabs, defaultTab, tabContents }) => {
         >
           {tabs.map((tab) => (
             <TabPanel key={tab} value={tab}>
-              <div className="grid grid-cols-3 gap-y-12 justify-items-center">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-12 justify-items-center">
                 {tabContents
                   .filter((item) => {
                     if (activeTab === "Your Search Results") return true;

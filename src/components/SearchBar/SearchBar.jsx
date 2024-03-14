@@ -9,36 +9,26 @@ import {
 } from "@material-tailwind/react";
 import { useState } from "react";
 
-let suggestions = [];
-
-const SearchBar = ({ menu, setSearchItems }) => {
+const SearchBar = ({ searchList, setSearchItems }) => {
   const [text, setText] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   // for search suggestions
-  const menuNames = menu.map((item) => {
+  const searchNames = searchList.map((item) => {
     return { _id: item._id, name: item.name };
   });
 
-  const onChange = (searchText) => {
-    suggestions = menuNames.filter((item) => {
-      if (!searchText) return false;
-      return item.name.toLowerCase().includes(searchText.toLowerCase());
-    });
-
-    if (searchText && suggestions.length) setShowSuggestions(true);
-    else setShowSuggestions(false);
-
-    if (!searchText) handleSearch();
-  };
+  let suggestions = searchNames.filter((menuItem) => {
+    if (!text) return false;
+    return menuItem.name.toLowerCase().includes(text.toLowerCase());
+  });
 
   const handleSearch = () => {
-    setShowSuggestions(false);
-
-    const searchedItems = menu.filter((item) =>
-      suggestions.find((suggestion) => suggestion._id === item._id)
+    const searchedItems = searchList.filter((menuItem) =>
+      suggestions.find((suggestion) => suggestion._id === menuItem._id)
     );
     setSearchItems(searchedItems);
+    setShowSuggestions(false);
   };
 
   const handleClear = () => {
@@ -77,7 +67,8 @@ const SearchBar = ({ menu, setSearchItems }) => {
             }
             onChange={({ target }) => {
               setText(target.value);
-              onChange(target.value);
+              setShowSuggestions(true);
+              if (!target.value) handleClear();
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
@@ -115,36 +106,37 @@ const SearchBar = ({ menu, setSearchItems }) => {
       </div>
 
       {/* search suggestions */}
-
-      <div className="w-full max-w-[24rem]">
-        <Card
-          className={`bg-inherit border max-h-60 overflow-y-auto ${
-            showSuggestions ? "visible" : "invisible"
-          } `}
-        >
-          <List className="text-white">
-            {suggestions.map((item) => (
-              <ListItem
-                key={item._id}
-                onClick={() => {
-                  setText(item.name);
-                  onChange(item.name);
-                  handleSearch();
-                }}
-              >
-                {item.name}
-              </ListItem>
-            ))}
-          </List>
-        </Card>
-      </div>
+      {suggestions.length && showSuggestions ? (
+        <div className="w-full max-w-[24rem]">
+          <Card className="bg-inherit border max-h-60 overflow-y-auto">
+            <List className="text-white">
+              {suggestions.map((item) => (
+                <ListItem
+                  key={item._id}
+                  onClick={() => {
+                    setText(item.name);
+                    setSearchItems(
+                      searchList.filter(
+                        (menuItem) => menuItem.name === item.name
+                      )
+                    );
+                    setShowSuggestions(false);
+                  }}
+                >
+                  {item.name}
+                </ListItem>
+              ))}
+            </List>
+          </Card>
+        </div>
+      ) : null}
     </>
   );
 };
 
 SearchBar.propTypes = {
-  menu: PropTypes.array,
-  setSearchItems: PropTypes.func,
+  searchList: PropTypes.array.isRequired,
+  setSearchItems: PropTypes.func.isRequired,
 };
 
 export default SearchBar;

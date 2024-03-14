@@ -13,7 +13,7 @@ const Menu = () => {
   return (
     <>
       <Cover
-        menu={menu}
+        searchList={menu}
         setSearchItems={setSearchItems}
         coverImage={coverImage}
         coverTitle={"search our menu"}

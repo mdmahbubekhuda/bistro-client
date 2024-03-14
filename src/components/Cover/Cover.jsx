@@ -2,7 +2,13 @@ import PropTypes from "prop-types";
 import { Parallax } from "react-parallax";
 import SearchBar from "../SearchBar/SearchBar";
 
-const Cover = ({ menu, setSearchItems, coverImage, coverTitle, coverText }) => {
+const Cover = ({
+  searchList,
+  setSearchItems,
+  coverImage,
+  coverTitle,
+  coverText,
+}) => {
   return (
     <Parallax
       blur={{ min: -15, max: 15 }}
@@ -20,7 +26,10 @@ const Cover = ({ menu, setSearchItems, coverImage, coverTitle, coverText }) => {
           </h1>
           <div className="space-y-4 h-[60vh] flex flex-col items-center px-4">
             {coverText || (
-              <SearchBar menu={menu} setSearchItems={setSearchItems} />
+              <SearchBar
+                searchList={searchList}
+                setSearchItems={setSearchItems}
+              />
             )}
           </div>
         </div>
@@ -33,7 +42,7 @@ Cover.propTypes = {
   coverImage: PropTypes.string,
   coverTitle: PropTypes.string,
   coverText: PropTypes.string,
-  menu: PropTypes.array,
+  searchList: PropTypes.array,
   setSearchItems: PropTypes.func,
 };
 

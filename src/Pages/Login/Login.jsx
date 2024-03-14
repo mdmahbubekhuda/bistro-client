@@ -10,11 +10,11 @@ import {
 } from "@material-tailwind/react";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import {
-  loadCaptchaEnginge,
-  LoadCanvasTemplate,
-  validateCaptcha,
-} from "react-simple-captcha";
+// import {
+//   loadCaptchaEnginge,
+//   LoadCanvasTemplate,
+//   validateCaptcha,
+// } from "react-simple-captcha";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
@@ -22,8 +22,8 @@ import "animate.css";
 import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const Login = () => {
-  const captchaRef = useRef(null);
-  const [loginDisabled, setLoginDisabled] = useState(true);
+  // const captchaRef = useRef(null);
+  // const [loginDisabled, setLoginDisabled] = useState(true);
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -86,18 +86,18 @@ const Login = () => {
         });
       });
 
-    setLoginDisabled(true);
+    // setLoginDisabled(true);
   };
 
-  useEffect(() => {
-    loadCaptchaEnginge(6);
-  }, []);
+  // useEffect(() => {
+  //   loadCaptchaEnginge(6);
+  // }, []);
 
-  const handleCaptcha = () => {
-    setLoginDisabled(true);
-    const user_captcha_value = captchaRef.current.children[0].value;
-    if (validateCaptcha(user_captcha_value)) setLoginDisabled(false);
-  };
+  // const handleCaptcha = () => {
+  //   setLoginDisabled(true);
+  //   const user_captcha_value = captchaRef.current.children[0].value;
+  //   if (validateCaptcha(user_captcha_value)) setLoginDisabled(false);
+  // };
 
   return (
     <div className="flex justify-center my-[10%]">
@@ -135,7 +135,7 @@ const Login = () => {
               type="password"
             />
             {/* captcha */}
-            <LoadCanvasTemplate />
+            {/* <LoadCanvasTemplate />
             <Input label="Captcha" size="lg" type="input" ref={captchaRef} />
             <Button
               variant="gradient"
@@ -143,7 +143,7 @@ const Login = () => {
               onClick={handleCaptcha}
             >
               Validate
-            </Button>
+            </Button> */}
             {/* captcha */}
             <div className="-ml-2.5">
               <Checkbox label="Remember Me" />
@@ -152,7 +152,7 @@ const Login = () => {
               variant="gradient"
               fullWidth
               type="submit"
-              disabled={loginDisabled}
+              // disabled={loginDisabled}
             >
               Sign In
             </Button>
