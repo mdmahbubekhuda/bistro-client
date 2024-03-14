@@ -1,12 +1,5 @@
 import PropTypes from "prop-types";
-import {
-  Input,
-  Button,
-  Card,
-  List,
-  ListItem,
-  ThemeProvider,
-} from "@material-tailwind/react";
+import { Input, Button, Card, List, ListItem } from "@material-tailwind/react";
 import { useState } from "react";
 
 const SearchBar = ({ searchList, setSearchItems }) => {
@@ -37,52 +30,34 @@ const SearchBar = ({ searchList, setSearchItems }) => {
     handleSearch();
   };
 
-  const customStyle = {
-    input: {
-      styles: {
-        variants: {
-          outlined: {
-            error: {
-              input: {
-                color: "text-white",
-              },
-            },
-          },
-        },
-      },
-    },
-  };
-
   return (
     <>
       <div className="relative w-full max-w-[24rem]">
-        <ThemeProvider value={customStyle}>
-          <Input
-            type="text"
-            value={text}
-            label={
-              !suggestions.length && text
-                ? "Search result not found..."
-                : "Type here..."
+        <Input
+          type="text"
+          value={text}
+          label={
+            !suggestions.length && text
+              ? "Search result not found..."
+              : "Type here..."
+          }
+          onChange={({ target }) => {
+            setText(target.value);
+            setShowSuggestions(true);
+            if (!target.value) handleClear();
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSearch();
             }
-            onChange={({ target }) => {
-              setText(target.value);
-              setShowSuggestions(true);
-              if (!target.value) handleClear();
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleSearch();
-              }
-            }}
-            error={!suggestions.length && text ? true : false}
-            color="white"
-            className="pr-20"
-            containerProps={{
-              className: "min-w-0",
-            }}
-          />
-        </ThemeProvider>
+          }}
+          error={!suggestions.length && text ? true : false}
+          color="white"
+          className="pr-20 text-white"
+          containerProps={{
+            className: "min-w-0",
+          }}
+        />
 
         <Button
           onClick={handleClear}
